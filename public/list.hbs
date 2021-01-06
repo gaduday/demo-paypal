@@ -12,7 +12,7 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="app.css">
   </head>
 
   <body>
@@ -22,23 +22,21 @@
         <div class="main">
           <div class="row padder">
             <div class="col-md-3 cover">
-              <img src="cover.png" alt="book" class="img img-responsive" />
+              {{!-- <img src="cover.png" alt="book" class="img img-responsive" /> --}}
             </div>
             <div class="col-md-9">
-              <h2 style="color: #dd3322">
-                Alas :(
-                <hr />
-                An error has occured
-              </h2>
-              <hr />
-              <a href="/">
-                <button class="btn btn-warning btn-lg">Back to home</button>
-              </a>
+              <ul class="list-payment" title="List Payment">
+                <!-- list will go here -->
+              </ul>
             </div>
+            <a href="/">
+              <button class="btn btn-warning btn-lg">Back to home</button>
+            </a>
           </div>
         </div>
       </div>
     </div>
     <div class="col-md-2"></div>
+    <script type="text/javascript" src="app.js"></script>
   </body>
 </html>

@@ -3,6 +3,7 @@ const path = require('path')
 const app = express()
 const paypal = require('paypal-rest-sdk')
 const fs = require('fs')
+const hbs = require('hbs')
 
 paypal.configure({
   mode: 'sandbox',
@@ -12,7 +13,11 @@ paypal.configure({
     'ELG789uU2HPgNmRH71YRvgBK4i70f9wVtwkAo6fdfsDBz--jUCmcrcSAU3WqycAphVH-e0CCVbSHhIO3',
 });
 
-app.use('/', express.static(path.join(__dirname, 'public')))
+const publicPath = path.join(__dirname, 'public')
+
+app.set('view engine', 'hbs')
+app.set('views', publicPath)
+app.use('/', express.static(publicPath))
 
 app.get('/', (req, res) => {
   res.redirect('/index.html')
@@ -88,6 +93,41 @@ app.get('/success', (req, res) => {
 app.get('/err', (req, res) => {
   console.log(req.query);
   res.redirect('/err.html');
+});
+
+app.post('/list', (req, res) => {
+  fs.readFile('db/db.json', (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (!JSON.parse(data)) {
+        console.log('db error');
+      } else {
+        let parsedData = JSON.parse(data);
+
+        res.status(200).json({ payment: parsedData})
+      }
+    }
+  });
+})
+
+app.get('/list', (req, res) => {
+  fs.readFile('db/db.json', (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (!JSON.parse(data)) {
+        console.log('db error');
+      } else {
+        let parsedData = JSON.parse(data);
+        let paymentList = {};
+
+        res.render('list', {
+          list: parsedData,
+        });
+      }
+    }
+  });
 });
 
 app.listen(3000, () => {
