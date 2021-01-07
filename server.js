@@ -16,18 +16,32 @@ paypal.configure({
 
 const publicPath = path.join(__dirname, 'public');
 
+let today = new Date();
+let date =
+  today.getFullYear() +
+  '-' +
+  (today.getMonth() + 1) +
+  '-' +
+  today.getDate() +
+  '/' +
+  today.getHours() +
+  ':' +
+  today.getMinutes() +
+  ':' +
+  today.getSeconds();
+
 app.set('view engine', 'hbs');
 app.set('views', publicPath);
 app.use('/', express.static(publicPath));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   res.redirect('/index.html');
 });
 
+let dynamicPaymentId = '';
+
 app.post('/buy', (req, res) => {
-  console.log('req= ', req.body);
-  // console.log("res= ", res)
   const create_payment_json = {
     intent: 'authorize',
     payer: {
@@ -35,7 +49,7 @@ app.post('/buy', (req, res) => {
     },
     redirect_urls: {
       return_url: 'http://localhost:3000/success',
-      cancel_url: 'http://localhost:3000/err',
+      cancel_url: 'http://localhost:3000/err/:id',
     },
     transactions: [
       {
@@ -69,30 +83,57 @@ app.post('/buy', (req, res) => {
     if (error) {
       console.log(error);
     } else {
-      console.log(payment)
       let id = payment.id;
       let links = payment.links;
       let counter = links.length;
+      let created_date = payment.create_time;
+      dynamicPaymentId = payment.id;
 
       while (counter--) {
         if (links[counter].method == 'REDIRECT') {
           // return res.redirect(links[counter].href)
-          res.status(200).json({ payUrl: links[counter].href });
+          res.status(200).json({
+            payUrl: links[counter].href,
+            money: req.body.money,
+            reason: req.body.reason
+          });
         }
       }
+
+      const paymentInfo = {
+        paymentId: id,
+        status: 'pending',
+        money: req.body.money,
+        reason: req.body.reason,
+        date: created_date,
+      };
+
+      fs.readFile('db/db.json', (err, data) => {
+        if (err) {
+          console.log(err);
+        } else {
+          if (!JSON.parse(data)) {
+            console.log('db error');
+          } else {
+            let parsedData = JSON.parse(data);
+            parsedData.push(paymentInfo);
+
+            fs.writeFile(
+              'db/db.json',
+              JSON.stringify(parsedData, null, 2),
+              (err) => {
+                if (err) throw err;
+                console.log('pending');
+              }
+            );
+          }
+        }
+      });
     }
   });
 });
 
 app.get('/success', (req, res) => {
-  console.log(req.query);
-  res.redirect('/success.html');
-
-  let paymentInfo = {
-    paymentId: req.query.paymentId,
-    payerId: req.query.PayerID,
-  };
-
   fs.readFile('db/db.json', (err, data) => {
     if (err) {
       console.log(err);
@@ -101,7 +142,14 @@ app.get('/success', (req, res) => {
         console.log('db error');
       } else {
         let parsedData = JSON.parse(data);
-        parsedData.push(paymentInfo);
+        for (let i = 0; i < parsedData.length; i++) {
+          if (parsedData[i].paymentId === req.query.paymentId) {
+            // const newObj = {...parsedData[i], payerId: req.query.PayerID}
+            parsedData[i].payerId = req.query.PayerID
+            parsedData[i].date = date
+            parsedData[i].status = "success"
+          }
+        }
 
         fs.writeFile(
           'db/db.json',
@@ -114,10 +162,39 @@ app.get('/success', (req, res) => {
       }
     }
   });
+  res.redirect('/success.html');
 });
 
-app.get('/err', (req, res) => {
-  console.log(req.query);
+app.get('/err/:id', (req, res) => {
+  req.params.id = dynamicPaymentId;
+  // console.log(req.params)
+  fs.readFile('db/db.json', (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (!JSON.parse(data)) {
+        console.log('db error');
+      } else {
+        let parsedData = JSON.parse(data);
+        for (let i = 0; i < parsedData.length; i++) {
+          if (parsedData[i].paymentId === req.params.id) {
+            // const newObj = {...parsedData[i], payerId: req.query.PayerID}
+            parsedData[i].date = date;
+            parsedData[i].status = 'canceled';
+          }
+        }
+
+        fs.writeFile(
+          'db/db.json',
+          JSON.stringify(parsedData, null, 2),
+          (err) => {
+            if (err) throw err;
+            console.log('canceled');
+          }
+        );
+      }
+    }
+  });
   res.redirect('/err.html');
 });
 
@@ -130,7 +207,6 @@ app.post('/list', (req, res) => {
         console.log('db error');
       } else {
         let parsedData = JSON.parse(data);
-
         res.status(200).json({ payment: parsedData });
       }
     }
@@ -158,14 +234,14 @@ app.listen(3000, () => {
   console.log('App listening on port 3000');
 });
 
-const createPay = (payment) => {
-  return new Promise((resolve, reject) => {
-    paypal.payment.create(payment, function (err, payment) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(payment);
-      }
-    });
-  });
-};
+// const createPay = (payment) => {
+//   return new Promise((resolve, reject) => {
+//     paypal.payment.create(payment, function (err, payment) {
+//       if (err) {
+//         reject(err);
+//       } else {
+//         resolve(payment);
+//       }
+//     });
+//   });
+// };

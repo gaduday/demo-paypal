@@ -6,7 +6,7 @@ paymentButton.addEventListener("click", (e) => {
   const reason = document.getElementById("info").value
   const error = document.querySelector("#error")
 
-  if (money <= 0) {
+  if (money <= 0 || money == "") {
     error.textContent = "invalid money"
     return
   }
