@@ -20,3 +20,7 @@ body {
 #error {
     color: red;
 }
+
+.error-massage {
+    color: red;
+}

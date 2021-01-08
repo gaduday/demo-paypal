@@ -30,24 +30,39 @@
               <div class="container">
                 <form>
                   <div class="form-group row">
-                    <label for="money" class="col-sm-2 col-form-label"
+                    <label for="money" class="col-sm-3 col-form-label"
                       >Tiền</label
                     >
                     <input
                       type="number"
-                      class="form-control col-sm-7"
+                      class="form-control col-sm-6"
                       id="payment-money"
                     />
-                    <span id="error" class="col-sm-3"></span>
+                    <span id="error-money" class="col-sm-3 error-massage"></span>
                   </div>
                   <div class="form-group row">
-                    <label for="info" class="col-sm-2">Why</label>
-                    <select id="info" class="form-control col-sm-7">
+                    <label for="info" class="col-sm-3">Nội dung</label>
+                    <!-- <select id="info" class="form-control col-sm-7">
                       <option value="buy a house">buy a house</option>
                       <option value="pay debt">pay debt</option>
                       <option value="Mua xe">Mua xe</option>
                       <option value="charity" selected>charity</option>
-                    </select>
+                    </select> -->
+                    <input type="text" class="form-control col-sm-6" id="info"> 
+                  </div>
+                  <div class="form-group row">
+                    <label for="name" class="col-sm-3 col-form-label">Tên</label>
+                    <input type="text" class="form-control col-sm-6" id="name">
+                  </div>
+                  <div class="form-group row">
+                    <label for="phone" class="col-sm-3 col-form-label">Số điện thoại</label>
+                    <input type="text" class="form-control col-sm-6" id="phone">
+                    <span id="error-phone" class="col-sm-3 error-massage"></span>
+                  </div>
+                  <div class="form-group row">
+                    <label for="email" class="col-sm-3 col-form-label">Email</label>
+                    <input type="text" class="form-control col-sm-6" id="email">
+                    <span id="error-email" class="col-sm-3 error-massage"></span>
                   </div>
                   <button class="btn btn-warning btn-lg" id="payment-button">
                     Thanh toán
