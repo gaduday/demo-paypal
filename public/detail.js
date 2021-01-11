@@ -1,40 +1,4 @@
-// fetch('/detail', {
-//   method: 'POST',
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-//   body: JSON.stringify({
-//     money,
-//     reason,
-//     name: name,
-//     phone,
-//     email,
-//   }),
-// })
-//   .then((response) => {
-//     // console.log(response)
-//     response.json().then((data) => {
-//       // const detailPayment = document.querySelector('.detail-payment');
-//       console.log(data);
-//       const detail = `<p>Tiền: $${data.money}</p>
-//           <p>Nội dung: ${data.reason}</p>
-//           <p>Tên: ${data.name}</p>
-//           <p>Phone: ${data.phone}</p>
-//           <p>Email: ${data.email}</p>
-//         `;
-//       console.log(detail);
-//       console.log(detailPayment);
-//       detailPayment.innerHTML = detail;
-//       window.location.href = '/detail';
-//     });
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
-
-
 const detailPayment = document.getElementById('detail-payment');
-// const detailPayment = document.get('row-info');
 const result = sessionStorage.getItem('info');
 const parsedResult = JSON.parse(result);
 console.log(parsedResult)
@@ -70,10 +34,7 @@ submitButton.addEventListener('click', (e) => {
     }),
   })
     .then((response) => {
-      // console.log(response)
       response.json().then((data) => {
-        // const detailPayment = document.querySelector('.detail-payment');
-        console.log(data);
         window.location.href = data.payUrl;
       });
     })

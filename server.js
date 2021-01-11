@@ -50,7 +50,7 @@ app.post('/pay', (req, res) => {
     },
     redirect_urls: {
       return_url: 'http://localhost:3000/success',
-      cancel_url: 'http://localhost:3000/err',
+      cancel_url: 'http://localhost:3000/err/:id',
     },
     transactions: [
       {
@@ -75,11 +75,10 @@ app.post('/pay', (req, res) => {
 
       while (counter--) {
         if (links[counter].method == 'REDIRECT') {
-          // return res.redirect(links[counter].href)
           res.status(200).json({
             payUrl: links[counter].href,
             paymentId: id,
-            status: 'created',
+            status: 'pending',
             money: req.body.money,
             reason: req.body.reason,
             name: req.body.name,
@@ -92,7 +91,7 @@ app.post('/pay', (req, res) => {
 
       const paymentInfo = {
         paymentId: id,
-        status: 'created',
+        status: 'pending',
         money: req.body.money,
         reason: req.body.reason,
         name: req.body.name,
@@ -126,24 +125,7 @@ app.post('/pay', (req, res) => {
   });
 });
 
-app.post('/detail', (req, res) => {
-  console.log(req.body)
-  res.status(200).json({
-    // paymentId: id,
-    status: 'created',
-    money: req.body.money,
-    reason: req.body.reason,
-    name: req.body.name,
-    phone: req.body.phone,
-    email: req.body.email,
-    date,
-  });
-  // res.redirect('/detail.html');
-  // res.render('detail.html')
-});
-
 app.get('/detail', (req, res) => {
-  console.log(req.body)
   res.render('detail', {
     
   });
@@ -183,7 +165,6 @@ app.get('/success', (req, res) => {
 
 app.get('/err/:id', (req, res) => {
   req.params.id = dynamicPaymentId;
-  // console.log(req.params)
   fs.readFile('db/db.json', (err, data) => {
     if (err) {
       console.log(err);
@@ -250,14 +231,3 @@ app.listen(3000, () => {
   console.log('App listening on port 3000');
 });
 
-// const createPay = (payment) => {
-//   return new Promise((resolve, reject) => {
-//     paypal.payment.create(payment, function (err, payment) {
-//       if (err) {
-//         reject(err);
-//       } else {
-//         resolve(payment);
-//       }
-//     });
-//   });
-// };
