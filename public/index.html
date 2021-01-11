@@ -37,17 +37,12 @@
                       type="number"
                       class="form-control col-sm-6"
                       id="payment-money"
+                      onkeyup="toggleButton(this)"
                     />
                     <span id="error-money" class="col-sm-3 error-massage"></span>
                   </div>
                   <div class="form-group row">
                     <label for="info" class="col-sm-3">Nội dung</label>
-                    <!-- <select id="info" class="form-control col-sm-7">
-                      <option value="buy a house">buy a house</option>
-                      <option value="pay debt">pay debt</option>
-                      <option value="Mua xe">Mua xe</option>
-                      <option value="charity" selected>charity</option>
-                    </select> -->
                     <input type="text" class="form-control col-sm-6" id="info"> 
                   </div>
                   <div class="form-group row">
@@ -67,7 +62,7 @@
                   
                 </form>
                 <a href="/detail">
-                    <button class="btn btn-warning btn-lg" id="payment-button">
+                    <button class="btn btn-warning btn-lg" id="payment-button" disabled>
                       Thanh toán
                     </button>
                   </a>

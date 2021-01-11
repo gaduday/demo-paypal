@@ -227,6 +227,13 @@ app.get('/list', (req, res) => {
   });
 });
 
+app.get('*', (req, res) => {
+  res.render('404', {
+    title: '404',
+    errorMessage: 'Page not found',
+  });
+});
+
 app.listen(3000, () => {
   console.log('App listening on port 3000');
 });

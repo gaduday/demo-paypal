@@ -17,17 +17,23 @@
 
   <body>
     <div class="row">
-      <div class="col-md-3"></div>
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div class="main">
           <div class="row padder">
-            <div class="col-md-3 cover">
-              {{!-- <img src="cover.png" alt="book" class="img img-responsive" /> --}}
-            </div>
-            <div class="col-md-9">
-              <ol class="list-payment" title="List Payment">
-                <!-- list will go here -->
-              </ol>
+            <div class="col-md-12">
+              <table class="table list-payment">
+                <tr>
+                  <th>Payment ID</th>
+                  <th>Status</th>
+                  <th>Money</th>
+                  <th>Reason</th>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                  <th>Date</th>
+                  <th>Payer ID</th>
+                </tr>
+              </table>
             </div>
             <a href="/">
               <button class="btn btn-warning btn-lg">Back to home</button>
