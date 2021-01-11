@@ -2,7 +2,7 @@ fetch('/list', {
   method: 'POST',
 }).then((response) => {
   response.json().then((data) => {
-    console.log(data)
+    // console.log(data)
     const listPayment = document.querySelector('.list-payment');
     const dataPayment = data.payment;
     const listItems = dataPayment.map((element) => {

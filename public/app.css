@@ -24,3 +24,7 @@ body {
 .error-massage {
     color: red;
 }
+
+.info {
+    display: inline;
+}

@@ -41,7 +41,8 @@ app.get('/', (req, res) => {
 
 let dynamicPaymentId = '';
 
-app.post('/buy', (req, res) => {
+app.post('/pay', (req, res) => {
+  console.log(req.body)
   const create_payment_json = {
     intent: 'authorize',
     payer: {
@@ -62,23 +63,6 @@ app.post('/buy', (req, res) => {
     ],
   };
 
-  // createPay(payment).then((transaction) => {
-  //   let id = transaction.id
-  //   let links = transaction.links
-  //   let counter = links.length
-
-  //   while (counter--) {
-  //     if (links[counter].method == 'REDIRECT') {
-  //       console.log(links[counter].href);
-  //       // return res.redirect(links[counter].href)
-  //       res.status(200).json({ payUrl: links[counter].href });
-  //     }
-  //   }
-  // }).catch((err) => {
-  //   console.log(err)
-  //   res.redirect('/err')
-  // })
-
   paypal.payment.create(create_payment_json, function (error, payment) {
     if (error) {
       console.log(error);
@@ -94,18 +78,27 @@ app.post('/buy', (req, res) => {
           // return res.redirect(links[counter].href)
           res.status(200).json({
             payUrl: links[counter].href,
+            paymentId: id,
+            status: 'created',
             money: req.body.money,
-            reason: req.body.reason
+            reason: req.body.reason,
+            name: req.body.name,
+            phone: req.body.phone,
+            email: req.body.email,
+            date,
           });
         }
       }
 
       const paymentInfo = {
         paymentId: id,
-        status: 'pending',
+        status: 'created',
         money: req.body.money,
         reason: req.body.reason,
-        date: created_date,
+        name: req.body.name,
+        phone: req.body.phone,
+        email: req.body.email,
+        date,
       };
 
       fs.readFile('db/db.json', (err, data) => {
@@ -130,6 +123,29 @@ app.post('/buy', (req, res) => {
         }
       });
     }
+  });
+});
+
+app.post('/detail', (req, res) => {
+  console.log(req.body)
+  res.status(200).json({
+    // paymentId: id,
+    status: 'created',
+    money: req.body.money,
+    reason: req.body.reason,
+    name: req.body.name,
+    phone: req.body.phone,
+    email: req.body.email,
+    date,
+  });
+  // res.redirect('/detail.html');
+  // res.render('detail.html')
+});
+
+app.get('/detail', (req, res) => {
+  console.log(req.body)
+  res.render('detail', {
+    
   });
 });
 
