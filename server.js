@@ -5,6 +5,7 @@ const paypal = require('paypal-rest-sdk');
 const fs = require('fs');
 const hbs = require('hbs');
 const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
 
 paypal.configure({
   mode: 'sandbox',
@@ -132,6 +133,8 @@ app.get('/detail', (req, res) => {
 });
 
 app.get('/success', (req, res) => {
+  let emailToSend = "";
+  let moneyToSend = 0;
   fs.readFile('db/db.json', (err, data) => {
     if (err) {
       console.log(err);
@@ -146,6 +149,8 @@ app.get('/success', (req, res) => {
             parsedData[i].payerId = req.query.PayerID
             parsedData[i].date = date
             parsedData[i].status = "success"
+            emailToSend = parsedData[i].email
+            moneyToSend = parsedData[i].money
           }
         }
 
@@ -157,10 +162,35 @@ app.get('/success', (req, res) => {
             console.log('success');
           }
         );
+
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: 'gasmokedayeveryweed@gmail.com',
+            pass: 'gadu1dayleo2day',
+          },
+        });
+
+        const mailOptions = {
+          from: 'gasmokedayeveryweed@gmail.com',
+          to: emailToSend,
+          subject: 'Hi there',
+          text: `You have paid $${moneyToSend} via our system!`,
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
       }
     }
   });
   res.redirect('/success.html');
+
+  
 });
 
 app.get('/err/:id', (req, res) => {
