@@ -6,6 +6,7 @@ const fs = require('fs');
 const hbs = require('hbs');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
+const { v1: uuidv1 } = require('uuid');
 
 paypal.configure({
   mode: 'sandbox',
@@ -68,6 +69,8 @@ app.post('/pay', (req, res) => {
     if (error) {
       console.log(error);
     } else {
+      console.log(payment)
+
       let id = payment.id;
       let links = payment.links;
       let counter = links.length;
@@ -77,6 +80,7 @@ app.post('/pay', (req, res) => {
       while (counter--) {
         if (links[counter].method == 'REDIRECT') {
           res.status(200).json({
+            orderId: uuidv1(),
             payUrl: links[counter].href,
             paymentId: id,
             status: 'pending',

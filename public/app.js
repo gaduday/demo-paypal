@@ -1,7 +1,7 @@
 const paymentButton = document.querySelector('#payment-button')
 
 const toggleButton = (input) => { 
-  if (input.value != '') {
+  if (input.value !== '') {
     paymentButton.disabled = false;
   } else {
     paymentButton.disabled = true;
@@ -14,6 +14,13 @@ paymentButton.addEventListener("click", (e) => {
   const name = document.getElementById('name').value;
   const phone = document.getElementById('phone').value;
   const email = document.getElementById('email').value;
+
+  // const nameError = document.getElementById('name-error')
+
+  // if (name === '') {
+  //   nameError.textContent = 'invalid name'
+  //   return
+  // }
   
   const arrayInfo = [money, reason, name, phone, email];
   sessionStorage.setItem('info', JSON.stringify(arrayInfo));

@@ -9,47 +9,5 @@
     "email": "3f@f.cdfe",
     "date": "2021-1-11/11:27:8",
     "payerId": "5LN2GY3BANTAG"
-  },
-  {
-    "paymentId": "PAYID-L757AMI5BL04851L2394163F",
-    "status": "canceled",
-    "money": "21",
-    "reason": "tra no",
-    "name": "nva",
-    "phone": "0023",
-    "email": "3f@f.cdfe",
-    "date": "2021-1-11/13:28:41"
-  },
-  {
-    "paymentId": "PAYID-L76AENI8J4352510F175133D",
-    "status": "success",
-    "money": "21",
-    "reason": "tra no",
-    "name": "nva",
-    "phone": "0023",
-    "email": "quangtrungnhd@gmail.com",
-    "date": "2021-1-11/14:45:39",
-    "payerId": "5LN2GY3BANTAG"
-  },
-  {
-    "paymentId": "PAYID-L76AHEQ67063362YL006894W",
-    "status": "pending",
-    "money": "1",
-    "reason": "tra no",
-    "name": "nva",
-    "phone": "0023",
-    "email": "quangtrungnhd@gmail.com",
-    "date": "2021-1-11/14:51:22"
-  },
-  {
-    "paymentId": "PAYID-L76AKJY66R8293357311572J",
-    "status": "success",
-    "money": "32",
-    "reason": "tra no",
-    "name": "nva",
-    "phone": "0023",
-    "email": "quangtrungnhd@gmail.com",
-    "date": "2021-1-11/14:58:16",
-    "payerId": "5LN2GY3BANTAG"
   }
 ]

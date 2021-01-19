@@ -1,12 +1,13 @@
 const detailPayment = document.getElementById('detail-payment');
 const result = sessionStorage.getItem('info');
 const parsedResult = JSON.parse(result);
-console.log(parsedResult)
 const money = document.getElementById('money');
 const reason = document.getElementById('reason');
 const name = document.getElementById('name');
 const phone = document.getElementById('phone');
 const email = document.getElementById('email');
+
+const submitButton = document.querySelector('#submit-button')
 
 money.textContent = parsedResult[0];
 reason.textContent = parsedResult[1];
@@ -14,7 +15,14 @@ name.textContent = parsedResult[2];
 phone.textContent = parsedResult[3];
 email.textContent = parsedResult[4];
 
-const submitButton = document.querySelector('#submit-button')
+const toggleButton = (input) => {
+  if (input.value !== '') {
+    submitButton.disabled = false;
+  } else {
+    submitButton.disabled = true;
+  }
+}
+
 submitButton.addEventListener('click', (e) => {
   e.preventDefault();
 
