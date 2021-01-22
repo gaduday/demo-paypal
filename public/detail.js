@@ -23,10 +23,39 @@ const toggleButton = (input) => {
   }
 }
 
-submitButton.addEventListener('click', (e) => {
-  e.preventDefault();
+// submitButton.addEventListener('click', (e) => {
+//   e.preventDefault();
 
-  console.log(reason)
+//   console.log(reason)
+
+//   fetch('/pay', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({
+//       money: money.textContent,
+//       reason: reason.textContent,
+//       name: name.textContent,
+//       phone: phone.textContent,
+//       email: email.textContent
+//     }),
+//   })
+//     .then((response) => {
+//       response.json().then((data) => {
+//         window.location.href = data.payUrl;
+//       });
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
+
+const submitForm = () => {
+  // e.preventDefault();
+  submitButton.setAttribute('disabled', 'disabled')
+
+  console.log(reason);
 
   fetch('/pay', {
     method: 'POST',
@@ -38,7 +67,7 @@ submitButton.addEventListener('click', (e) => {
       reason: reason.textContent,
       name: name.textContent,
       phone: phone.textContent,
-      email: email.textContent
+      email: email.textContent,
     }),
   })
     .then((response) => {
@@ -49,4 +78,4 @@ submitButton.addEventListener('click', (e) => {
     .catch((err) => {
       console.log(err);
     });
-});
+}

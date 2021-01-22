@@ -19,69 +19,63 @@
   </head>
 
   <body>
-    <div class="">
-      <div class=""></div>
+    <div class="main">
       <div class="">
-        <div class="main">
-          <div class="">
-            <div>
-              <h2>Demo</h2>
-              <hr />
-              <div class="container">
-                <form>
-                  <div class="form-group row">
-                    <label for="money" class="col-sm-3 col-form-label"
-                      >Tiền</label
-                    >
-                    <input
-                      type="number"
-                      class="form-control col-sm-6"
-                      id="payment-money"
-                      onkeyup="toggleButton(this)"
-                    />
-                    <span id="error-money" class="col-sm-3 error-massage"></span>
-                  </div>
-                  <div class="form-group row">
-                    <label for="info" class="col-sm-3">Nội dung</label>
-                    <input type="text" class="form-control col-sm-6" id="info"> 
-                  </div>
-                  <div class="form-group row">
-                    <label for="name" class="col-sm-3 col-form-label">Tên</label>
-                    <input type="text" class="form-control col-sm-6" id="name">
-                    <span class="error" id="name-error"></span>
-                  </div>
-                  <div class="form-group row">
-                    <label for="phone" class="col-sm-3 col-form-label">Số điện thoại</label>
-                    <input type="text" class="form-control col-sm-6" id="phone">
-                    <span id="error-phone" class="col-sm-3 error-massage"></span>
-                  </div>
-                  <div class="form-group row">
-                    <label for="email" class="col-sm-3 col-form-label">Email</label>
-                    <input type="text" class="form-control col-sm-6" id="email">
-                    <span id="error-email" class="col-sm-3 error-massage"></span>
-                  </div>
-                  
-                </form>
-                <a href="/detail">
-                    <button class="btn btn-warning btn-lg" id="payment-button" disabled>
-                      Thanh toán
-                    </button>
-                  </a>
-                <a href="/list">
-                    <button class="btn btn-success btn-lg">
-                      Get payment list
-                    </button>
-                  </a>
+        <div>
+          <h2>Demo</h2>
+          <hr />
+          <div class="container">
+            <form>
+              <div class="form-group row">
+                <label for="money" class="col-sm-3 col-form-label">Tiền</label>
+                <input
+                  type="number"
+                  class="form-control col-sm-6"
+                  id="payment-money"
+                  onchange="toggleButton(this)"
+                />
+                <span id="error-money" class="col-sm-3 error-massage"></span>
               </div>
-              <hr />
-            </div>
+              <div class="form-group row">
+                <label for="info" class="col-sm-3">Nội dung</label>
+                <input type="text" class="form-control col-sm-6" id="info" />
+              </div>
+              <div class="form-group row">
+                <label for="name" class="col-sm-3 col-form-label">Tên</label>
+                <input type="text" class="form-control col-sm-6" id="name" />
+                <span class="error" id="name-error"></span>
+              </div>
+              <div class="form-group row">
+                <label for="phone" class="col-sm-3 col-form-label"
+                  >Số điện thoại</label
+                >
+                <input type="text" class="form-control col-sm-6" id="phone" />
+                <span id="error-phone" class="col-sm-3 error-massage"></span>
+              </div>
+              <div class="form-group row">
+                <label for="email" class="col-sm-3 col-form-label">Email</label>
+                <input type="text" class="form-control col-sm-6" id="email" />
+                <span id="error-email" class="col-sm-3 error-massage"></span>
+              </div>
+            </form>
+            <a href="/detail">
+              <button
+                class="btn btn-warning btn-lg"
+                id="payment-button"
+                disabled
+              >
+                Thanh toán
+              </button>
+            </a>
+            <a href="/list">
+              <button class="btn btn-success btn-lg">Get payment list</button>
+            </a>
           </div>
+          <hr />
         </div>
       </div>
     </div>
     <div class="col-md-2"></div>
-    <script src="app.js">
-      
-    </script>
+    <script src="app.js"></script>
   </body>
 </html>
