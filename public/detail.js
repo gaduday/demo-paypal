@@ -7,7 +7,9 @@ const name = document.getElementById('name');
 const phone = document.getElementById('phone');
 const email = document.getElementById('email');
 
-const submitButton = document.querySelector('#submit-button')
+const paypalButton = document.querySelector('#paypal-button');
+const vnpayButton = document.querySelector('#vnpay-button');
+const momoButton = document.querySelector('#momo-button');
 
 money.textContent = parsedResult[0];
 reason.textContent = parsedResult[1];
@@ -17,11 +19,11 @@ email.textContent = parsedResult[4];
 
 const toggleButton = (input) => {
   if (input.value !== '') {
-    submitButton.disabled = false;
+    paypalButton.disabled = false;
   } else {
-    submitButton.disabled = true;
+    paypalButton.disabled = true;
   }
-}
+};
 
 // submitButton.addEventListener('click', (e) => {
 //   e.preventDefault();
@@ -51,9 +53,11 @@ const toggleButton = (input) => {
 //     });
 // });
 
-const submitForm = () => {
+const submitPaypal = () => {
   // e.preventDefault();
-  submitButton.setAttribute('disabled', 'disabled')
+  paypalButton.setAttribute('disabled', 'disabled');
+  vnpayButton.setAttribute('disabled', 'disabled');
+  momoButton.setAttribute('disabled', 'disabled');
 
   console.log(reason);
 
@@ -73,6 +77,69 @@ const submitForm = () => {
     .then((response) => {
       response.json().then((data) => {
         window.location.href = data.payUrl;
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const submitVnpay = () => {
+  paypalButton.setAttribute('disabled', 'disabled');
+  vnpayButton.setAttribute('disabled', 'disabled');
+  momoButton.setAttribute('disabled', 'disabled');
+
+  fetch('/create_payment_url', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      money: money.textContent,
+      reason: reason.textContent,
+      name: name.textContent,
+      phone: phone.textContent,
+      email: email.textContent,
+    }),
+  })
+    .then((response) => {
+      response.json().then((data) => {
+        console.log(data);
+        window.location.href = data.payUrl;
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const submitMomo = () => {
+  paypalButton.setAttribute('disabled', 'disabled');
+  vnpayButton.setAttribute('disabled', 'disabled');
+  momoButton.setAttribute('disabled', 'disabled');
+
+  fetch('/momo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      money: money.textContent,
+      reason: reason.textContent,
+      name: name.textContent,
+      phone: phone.textContent,
+      email: email.textContent,
+    }),
+  })
+    .then((response) => {
+      response.json().then((data) => {
+        console.log(data);
+        if (data.status === 'success') {
+        //   text.textContent = 'loading...';
+          window.location = data.url;
+        } else {
+          text.textContent = data.message;
+        }
       });
     })
     .catch((err) => {
