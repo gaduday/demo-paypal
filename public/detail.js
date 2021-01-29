@@ -25,34 +25,6 @@ const toggleButton = (input) => {
   }
 };
 
-// submitButton.addEventListener('click', (e) => {
-//   e.preventDefault();
-
-//   console.log(reason)
-
-//   fetch('/pay', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({
-//       money: money.textContent,
-//       reason: reason.textContent,
-//       name: name.textContent,
-//       phone: phone.textContent,
-//       email: email.textContent
-//     }),
-//   })
-//     .then((response) => {
-//       response.json().then((data) => {
-//         window.location.href = data.payUrl;
-//       });
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// });
-
 const submitPaypal = () => {
   // e.preventDefault();
   paypalButton.setAttribute('disabled', 'disabled');
@@ -61,7 +33,7 @@ const submitPaypal = () => {
 
   console.log(reason);
 
-  fetch('/pay', {
+  fetch('/paypal/pay', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -89,7 +61,7 @@ const submitVnpay = () => {
   vnpayButton.setAttribute('disabled', 'disabled');
   momoButton.setAttribute('disabled', 'disabled');
 
-  fetch('/create_payment_url', {
+  fetch('/vnpay/pay', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -104,7 +76,7 @@ const submitVnpay = () => {
   })
     .then((response) => {
       response.json().then((data) => {
-        console.log(data);
+        // console.log(data);
         window.location.href = data.payUrl;
       });
     })
@@ -118,7 +90,7 @@ const submitMomo = () => {
   vnpayButton.setAttribute('disabled', 'disabled');
   momoButton.setAttribute('disabled', 'disabled');
 
-  fetch('/momo', {
+  fetch('/momo/pay', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -133,7 +105,7 @@ const submitMomo = () => {
   })
     .then((response) => {
       response.json().then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.status === 'success') {
         //   text.textContent = 'loading...';
           window.location = data.url;
