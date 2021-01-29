@@ -5,7 +5,6 @@ const dotenv = require('dotenv');
 dotenv.config();
 const { v1: uuidv1 } = require('uuid');
 const crypto = require('crypto');
-const https = require('https');
 const request = require('request');
 
 let today = new Date();

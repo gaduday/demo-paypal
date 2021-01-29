@@ -19,28 +19,21 @@
   </head>
 
   <body onload="if (document.referrer == '') self.location='404';">
-    <div class="">
-      <div class=""></div>
-      <div class="">
-        <div class="main">
-          <div class="">
-            <div>
-              <h2>Demo</h2>
-              <hr />
-              <div class="container detail-payment" id="detail-payment">
-                <div class="info"><b>Số tiền</b><p class="money" id="money"></p></div>
-                <div class="info"><b>Lý do chuyển tiền</b><p class="reason" id="reason"></p></div>
-                <div class="info"><b>Tên người chuyển</b><p class="name" id="name"></p></div>
-                <div class="info"><b>Số điện thoại</b><p class="phone" id="phone"></p></div>
-                <div class="info"><b>Email</b><p class="email" id="email"></p></div>
-              </div>
-              <button class='btn btn-warning btn-lg' id="paypal-button" onclick="submitPaypal()">Thanh toán bằng Paypal</button>
-              <button class='btn btn-info btn-lg' id="vnpay-button" onclick="submitVnpay()">Thanh toán bằng VNPay</button>
-              <button class='btn btn-danger btn-lg' id="momo-button" onclick="submitMomo()">Thanh toán bằng Momo</button>
-              <hr />
-            </div>
-          </div>
+    <div class="container">
+      <div>
+        <h2>Demo</h2>
+        <hr />
+        <div class="container detail-payment" id="detail-payment">
+          <div class="info"><b>Số tiền</b><p class="money" id="money"></p></div>
+          <div class="info"><b>Lý do chuyển tiền</b><p class="reason" id="reason"></p></div>
+          <div class="info"><b>Tên người chuyển</b><p class="name" id="name"></p></div>
+          <div class="info"><b>Số điện thoại</b><p class="phone" id="phone"></p></div>
+          <div class="info"><b>Email</b><p class="email" id="email"></p></div>
         </div>
+        <button class='btn btn-warning btn-lg' id="paypal-button" onclick="submitPaypal()">Paypal</button>
+        <button class='btn btn-info btn-lg' id="vnpay-button" onclick="submitVnpay()">VNPay</button>
+        <button class='btn btn-danger btn-lg' id="momo-button" onclick="submitMomo()">Momo</button>
+        <hr />
       </div>
     </div>
     <div class="col-md-2"></div>
